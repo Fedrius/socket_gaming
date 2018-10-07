@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+}
+
+.gameContainer {
+  display: flex;
+  justify-content: center;
+
+  border: 1px solid blue;
+}
+
+.gameGrid {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 200px 200px 200px;
+}
+
+.gridSquare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid black;
+  font-size: 100px;
+}
+
+.disableClick {
+  pointer-events: none;
+}
