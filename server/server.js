@@ -8,7 +8,7 @@ const _ = require('lodash');
 var cors = require('cors');
 const express = require('express');
 
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 9000;
 var app = express();
 app.use(cors());
 
