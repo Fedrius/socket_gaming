@@ -5,10 +5,12 @@ const os = require('os');
 const path = require('path');
 //dependencies
 const _ = require('lodash');
+var cors = require('cors');
 const express = require('express');
 
 const port = process.env.PORT || 3000;
 var app = express();
+app.use(cors());
 
 // middleware is like a 3rd party addon...
 // for express static middleware 
