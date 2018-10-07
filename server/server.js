@@ -8,7 +8,7 @@ const _ = require('lodash');
 var cors = require('cors');
 const express = require('express');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 1337;
 var app = express();
 app.use(cors());
 
@@ -19,21 +19,26 @@ console.log(__dirname + '/../public');
 console.log(publicPath);
 
 // must call next() to complete middleware
-app.use((req, res, next) => {
-  var now = new Date().toString();
-  var log = `${now}: ${req.method} ${req.url}`;
-  console.log(log);
-  // fs.appendFile('server.log', log + '\n', (err) => {
-  //   if (err) {
-  //     console.log('Unable to append to server.log');
-  //   }
-  // });
-  next();
-});
+// app.use((req, res, next) => {
+//   var now = new Date().toString();
+//   var log = `${now}: ${req.method} ${req.url}`;
+//   console.log(log);
+//   // fs.appendFile('server.log', log + '\n', (err) => {
+//   //   if (err) {
+//   //     console.log('Unable to append to server.log');
+//   //   }
+//   // });
+//   next();
+// });
 
 //serves up the html in public folder. static
 //public path is the path to the index.html
 app.use(express.static(publicPath));
+
+app.get('/',(req,res) => {
+  res.sendFile(path.resolve(publicPath, 'index.html'));
+  console.log('test');
+});
 
 // Home route -- sending json
 // app.get('/', (req, res) => {
