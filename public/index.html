@@ -7,41 +7,92 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-  <script src="main.js"></script>
+  <script defer src="main.js"></script>
 </head>
-<body>
-  <section class="section">
-    <div class="container">
+<body id="page-top">
+  <nav class="navbar p-navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#page-top">
+        <strong>LOGO!</strong>
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item">
+          Home
+        </a>
+  
+        <a class="navbar-item">
+          About
+        </a>
+<!--   
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              About
+            </a>
+            <a class="navbar-item">
+              Jobs
+            </a>
+            <a class="navbar-item">
+              Contact
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Report an issue
+            </a>
+          </div>
+        </div> -->
+      </div>
+    
+      <!-- <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light">
+              Log in
+            </a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </nav>
+  <div class="container">
+    <!-- <div class="notification">
+      Test Notification
+    </div> -->
+    <section class="section">
       <h1 class="title has-text-centered" id='gameTitle'>Tic Tac Toe</h1>
-      <div class="gameContainer">
+      <div class="gameContainer p-flex-hori-center">
 
         <div class="gameGrid">
-          <div class="gridSquare" id="r1cl sqr0" row="0" col="0"></div>
-          <div class="gridSquare" id="r1c2 sqr1" row="0" col="1"></div>
-          <div class="gridSquare" id="r1c3 sqr2" row="0" col="2"></div>
+          <div class="gridSquare" row="0" col="0"></div>
+          <div class="gridSquare" row="0" col="1"></div>
+          <div class="gridSquare" row="0" col="2"></div>
 
-          <div class="gridSquare" id="r2cl sqr3" row="1" col="0"></div>
-          <div class="gridSquare" id="r2c2 sqr4" row="1" col="1"></div>
-          <div class="gridSquare" id="r2c3 sqr5" row="1" col="2"></div>
+          <div class="gridSquare" row="1" col="0"></div>
+          <div class="gridSquare" row="1" col="1"></div>
+          <div class="gridSquare" row="1" col="2"></div>
 
-          <div class="gridSquare" id="r3cl sqr6" row="2" col="0"></div>
-          <div class="gridSquare" id="r3c2 sqr7" row="2" col="1"></div>
-          <div class="gridSquare" id="r3c3 sqr8" row="2" col="2"></div>
+          <div class="gridSquare" row="2" col="0"></div>
+          <div class="gridSquare" row="2" col="1"></div>
+          <div class="gridSquare" row="2" col="2"></div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h1 class="title">
-        Hello Worlddddd
-      </h1>
-      <p class="subtitle">
-        Testing
-      </p>
-    </div>
-  </section>
-  
+    </section>  
+  </div>
 </body>
 </html>

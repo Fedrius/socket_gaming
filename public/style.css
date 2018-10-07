@@ -1,29 +1,42 @@
 * {
   box-sizing: border-box;
 }
-
 .gameContainer {
-  display: flex;
-  justify-content: center;
-
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
-
 .gameGrid {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
-  grid-template-rows: 200px 200px 200px;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
 }
-
 .gridSquare {
   display: flex;
   justify-content: center;
   align-items: center;
 
   border: 1px solid black;
-  font-size: 100px;
+  font-size: 400%;
 }
-
 .disableClick {
   pointer-events: none;
+}
+
+
+/* Custom CSS */
+.p-navbar {
+  border-bottom: 1px solid black;
+}
+/* Flex Centering */
+.p-flex-hori-center {
+  display: flex;
+  justify-content: center;
+}
+.p-flex-verti-center {
+  display: flex;
+  align-items: center;
+}
+.p-flex-hori-and-verti-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
