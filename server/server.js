@@ -1,5 +1,6 @@
 console.log('--SERVER STARTED--');
 //part of node
+const http = require('http');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -7,6 +8,7 @@ const path = require('path');
 const _ = require('lodash');
 var cors = require('cors');
 const express = require('express');
+const socketIO = require('socket.io');
 
 const port = process.env.PORT || 9000;
 var app = express();
@@ -17,6 +19,30 @@ app.use(cors());
 const publicPath = path.join(__dirname, '../public');
 console.log(__dirname + '/../public');
 console.log(publicPath);
+
+var server = http.createServer(app);
+var io = socketIO(server);
+
+// event listener..
+io.on('connection', (socket) => {
+  console.log('new user connected..');
+
+  // sending data from SERVER to CLIENT
+  socket.emit('newMessage', {
+    from: 'jonny',
+    text: 'hi',
+    createdAt: 12123
+  });
+
+  // receiving data from the client to the server
+  socket.on('createMessage', (message) => {
+    console.log('createMessage:', message);
+  })
+
+  socket.on('disconnect', () => {
+    console.log('user was disconnected');
+  })
+});
 
 // must call next() to complete middleware
 // app.use((req, res, next) => {
@@ -64,7 +90,7 @@ app.get('/bad', (req, res) => {
 
 // listening on port 
 // nodemon serves app continuously
-app.listen(port, ()=> {
+server.listen(port, ()=> {
   console.log(`server is up on ${port}`);
 });
 
