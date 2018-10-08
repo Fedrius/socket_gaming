@@ -20,9 +20,11 @@
 .disableClick {
   pointer-events: none;
 }
+.gameBtnContainer {
+  margin-top: 10px;
+}
 
-
-/* Custom CSS */
+/* Custom P CSS */
 .p-navbar {
   border-bottom: 1px solid black;
 }
