@@ -27,16 +27,39 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('new user connected..');
 
+  //socket is emitting to 1 connecting
   // sending data from SERVER to CLIENT
   socket.emit('newMessage', {
-    from: 'jonny',
-    text: 'hi',
-    createdAt: 12123
+    from: 'Admin',
+    text: 'Welcome to the server',
+    createdAt: new Date().toLocaleString()
   });
+
+  // everyone but the user gets this msg
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'New user connected',
+    createdAt: new Date().toLocaleString()
+  });
+
+  // sending data from SERVER to CLIENT
+  // socket.emit('newMessage', {
+  //   from: 'jonny',
+  //   text: 'hi',
+  //   createdAt: new Date().getTime()
+  // });
 
   // receiving data from the client to the server
   socket.on('createMessage', (message) => {
     console.log('createMessage:', message);
+
+    // then sending the message from server to client
+    // io emits to every connection
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().toLocaleString()
+    })
   })
 
   socket.on('disconnect', () => {
