@@ -31,6 +31,11 @@ document.getElementById('testBtn').addEventListener('click', () => {
     from: 'nobody1',
     text: 'its a test'
   });
+
+
+  socket.emit('createGameMove', {
+    test: 1
+  });
 })
 
 document.getElementById('testBtn2').addEventListener('click', () => {
@@ -39,3 +44,9 @@ document.getElementById('testBtn2').addEventListener('click', () => {
     text: 'this a test again'
   });
 })
+
+socket.on('updateGame', (game) => {
+  console.log('newMessage:', game);
+
+  document.getElementsByClassName("gridSquare")[game.test].textContent = 'X'
+});

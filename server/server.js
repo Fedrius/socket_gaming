@@ -65,6 +65,15 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user was disconnected');
   })
+
+  socket.on('createGameMove', (game) => {
+    console.log(game);
+
+    io.emit('updateGame', {
+      test: game.test,
+      createdAt: new Date().toLocaleString()
+    })
+  })
 });
 
 // must call next() to complete middleware
