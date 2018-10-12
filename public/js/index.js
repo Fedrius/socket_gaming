@@ -2,20 +2,11 @@ var socket = io();
 
 socket.on('connect', () => {
   console.log('connected to server');
-
-  //emits after user connected.
-  // sending email from client to server
-  // socket.emit('createMessage', {
-  //   from: 'pauly',
-  //   text: 'memarwaadawdawdaw'
-  // });
 });
-
 socket.on('disconnect', () => {
   console.log('disconnected from server');
 });
-
-//receiving data from server to client
+// Notifications
 socket.on('newMessage', (message) => {
   console.log('newMessage:', message);
 
@@ -25,28 +16,14 @@ socket.on('newMessage', (message) => {
   div.appendChild(text);
   document.getElementById('notificationContainer').prepend(div);
 });
-
-document.getElementById('testBtn').addEventListener('click', () => {
-    socket.emit('createMessage', {
-    from: 'nobody1',
-    text: 'its a test'
+document.getElementById('testBtn3').addEventListener('click', () => {
+    socket.emit('clicky', {
+      clicky: 7
   });
-
-
-  socket.emit('createGameMove', {
-    test: 1
-  });
-})
-
-document.getElementById('testBtn2').addEventListener('click', () => {
-    socket.emit('createMessage', {
-    from: 'nobody2',
-    text: 'this a test again'
-  });
-})
-
+});
+// Updates game board view for all players
 socket.on('updateGame', (game) => {
-  console.log('newMessage:', game);
+  console.log('da game: ', game);
 
-  document.getElementsByClassName("gridSquare")[game.test].textContent = 'X'
+  document.getElementById(game.gridSquare).textContent = game.player;
 });

@@ -23,37 +23,27 @@ console.log(publicPath);
 var server = http.createServer(app);
 var io = socketIO(server);
 
+let clicky = 0;
+
 // event listener..
 io.on('connection', (socket) => {
   console.log('new user connected..');
-
-  //socket is emitting to 1 connecting
-  // sending data from SERVER to CLIENT
+  // Only the user who's connected sees this
   socket.emit('newMessage', {
     from: 'Admin',
     text: 'Welcome to the server',
+    test: clicky,
     createdAt: new Date().toLocaleString()
   });
-
   // everyone but the user gets this msg
   socket.broadcast.emit('newMessage', {
     from: 'Admin',
     text: 'New user connected',
     createdAt: new Date().toLocaleString()
   });
-
-  // sending data from SERVER to CLIENT
-  // socket.emit('newMessage', {
-  //   from: 'jonny',
-  //   text: 'hi',
-  //   createdAt: new Date().getTime()
-  // });
-
-  // receiving data from the client to the server
+  // Notifications
   socket.on('createMessage', (message) => {
     console.log('createMessage:', message);
-
-    // then sending the message from server to client
     // io emits to every connection
     io.emit('newMessage', {
       from: message.from,
@@ -61,16 +51,25 @@ io.on('connection', (socket) => {
       createdAt: new Date().toLocaleString()
     })
   })
-
   socket.on('disconnect', () => {
     console.log('user was disconnected');
   })
-
+  // Tracking whos clicking my btn..
+  socket.on('clicky', (e) => {
+    clicky++;
+    console.log(clicky);
+  })
+  // Tic Tac Toe game functionality
   socket.on('createGameMove', (game) => {
     console.log(game);
 
+    let gameResult;
+    // Game will be programmed on server
+    // Only need to send view data.
     io.emit('updateGame', {
-      test: game.test,
+      gridSquare: game.sqr,
+      player: game.player,
+      gameResult: gameResult || '',
       createdAt: new Date().toLocaleString()
     })
   })

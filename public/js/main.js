@@ -30,32 +30,42 @@ function addGameClickHandlers() {
   }
 }
 
-function gameEventHandler() {
+function gameEventHandler(event) {
+  console.log('id:', event.target.getAttribute('id'));
   console.log('row:', event.target.getAttribute('row'));
   console.log('col:', event.target.getAttribute('col'));
 
+  let sqr = event.target.getAttribute('id');
   let row = event.target.getAttribute('row');
   let col = event.target.getAttribute('col');
   
-  gameGrid[row][col] = players[playerTurn];
-  event.target.textContent = players[playerTurn];
-  event.target.classList.add('disableClick');
-  // playerTurn = 1-playerTurn;
+  // gameGrid[row][col] = players[playerTurn];
+  // event.target.textContent = players[playerTurn];
+  // event.target.classList.add('disableClick');
+  // // playerTurn = 1-playerTurn;
 
-  diagonalWinCheck('Player 1');
-  horizontalWinCheck(row, null, 'Player 1');
-  verticalWinCheck(row, col, 'Player 1');
+  // diagonalWinCheck('Player 1');
+  // horizontalWinCheck(row, null, 'Player 1');
+  // verticalWinCheck(row, col, 'Player 1');
 
-  turnCounter++;
-  if (turnCounter === 9 && !playerWon) {
-    console.log('draw');
+  // turnCounter++;
+  // if (turnCounter === 9 && !playerWon) {
+  //   console.log('draw');
 
-    document.getElementById('gameTitle').textContent = 'Draw'
-  } else if (!playerWon) {
-    computerAI('easy');
-  }
+  //   document.getElementById('gameTitle').textContent = 'Draw'
+  // } else if (!playerWon) {
+  //   computerAI('easy');
+  // }
 
-  console.log(gameGrid);
+  // console.log(gameGrid);
+
+
+  socket.emit('createGameMove', {
+    sqr,
+    row,
+    col,
+    player: 'O'
+  });
 }
 
 //0,0
