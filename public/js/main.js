@@ -16,7 +16,11 @@ function initializeGame() {
   addGameClickHandlers();
   gameReset();
   bulmaComponents();
+
+  document.getElementById('submitter').addEventListener('submit', sendData);
 }
+
+
 
 function addGameClickHandlers() {
   let gridSquares = document.querySelectorAll('.gridSquare');

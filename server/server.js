@@ -12,9 +12,12 @@ const socketIO = require('socket.io');
 
 const port = process.env.PORT || 9000;
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
 app.use(cors());
 
-// middleware is like a 3rd party addon...
 // for express static middleware 
 const publicPath = path.join(__dirname, '../public');
 console.log(__dirname + '/../public');
@@ -96,6 +99,37 @@ app.get('/',(req,res) => {
   res.sendFile(path.resolve(publicPath, 'index.html'));
   console.log('test');
 });
+
+
+var nsp = io.of('/test');
+nsp.on('connection', function(socket){
+  console.log('someone connected 2 other server');
+});
+
+app.get('/12345',(req,res) => {
+  res.sendFile(path.resolve(publicPath, 'test.html'));
+  console.log('secret');
+});
+
+app.post('/secret', (req, res) => {
+  // console.log(req);
+  // let data = res;
+  // res.sendFile(path.resolve(publicPath, 'test.html'));
+  // res.send({res});
+  console.log(req.body)
+  var user_id = req.body.id;
+  var token = req.body.token;
+  var geo = req.body.geo;
+
+  if(req.body.pass === '1') {
+    res.send({
+      result: 'correct',
+      secret: '12345'
+    });
+  } else {
+    res.send('wrong');
+  }
+})
 
 // Home route -- sending json
 // app.get('/', (req, res) => {
