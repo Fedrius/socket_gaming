@@ -28,7 +28,7 @@ var io = socketIO(server);
 
 let clicky = 0;
 
-// event listener..
+// Lobby socket connection
 io.on('connection', (socket) => {
   console.log('new user connected..');
   // Only the user who's connected sees this
@@ -62,6 +62,13 @@ io.on('connection', (socket) => {
     clicky++;
     console.log(clicky);
   })
+});
+
+// Socket connection for the room
+var nsp = io.of('/room');
+nsp.on('connection', function(socket) {
+  console.log('someone connected to the room');
+
   // Tic Tac Toe game functionality
   socket.on('createGameMove', (game) => {
     console.log(game);
@@ -69,7 +76,7 @@ io.on('connection', (socket) => {
     let gameResult;
     // Game will be programmed on server
     // Only need to send view data.
-    io.emit('updateGame', {
+    nsp.emit('updateGame', {
       gridSquare: game.sqr,
       player: game.player,
       gameResult: gameResult || '',
@@ -100,22 +107,12 @@ app.get('/',(req,res) => {
   console.log('test');
 });
 
-
-var nsp = io.of('/test');
-nsp.on('connection', function(socket){
-  console.log('someone connected 2 other server');
-});
-
 app.get('/12345',(req,res) => {
-  res.sendFile(path.resolve(publicPath, 'test.html'));
+  res.sendFile(path.resolve(publicPath, 'room.html'));
   console.log('secret');
 });
 
 app.post('/secret', (req, res) => {
-  // console.log(req);
-  // let data = res;
-  // res.sendFile(path.resolve(publicPath, 'test.html'));
-  // res.send({res});
   console.log(req.body)
   var user_id = req.body.id;
   var token = req.body.token;
@@ -152,13 +149,11 @@ app.get('/bad', (req, res) => {
   });
 });
 
-
 // listening on port 
 // nodemon serves app continuously
 server.listen(port, ()=> {
   console.log(`server is up on ${port}`);
 });
-
 
 /*
 The order of the method calls determines what is rendered first..

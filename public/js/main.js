@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', initializeGame);
-
+document.addEventListener('DOMContentLoaded', initialize);
+var socket = io('/room');
 let gameGrid = [
   [0, 0, 0],
   [0, 0, 0],
@@ -12,15 +12,17 @@ let players = ['X','O'];
 //this will change based on who will go first.. later
 let playerTurn = 0;
 
-function initializeGame() {
+// Updates game board view for all players
+socket.on('updateGame', (game) => {
+  console.log('da game: ', game);
+  document.getElementById(game.gridSquare).textContent = game.player;
+});
+
+function initialize() {
   addGameClickHandlers();
   gameReset();
   bulmaComponents();
-
-  document.getElementById('submitter').addEventListener('submit', sendData);
 }
-
-
 
 function addGameClickHandlers() {
   let gridSquares = document.querySelectorAll('.gridSquare');
@@ -62,7 +64,6 @@ function gameEventHandler(event) {
   // }
 
   // console.log(gameGrid);
-
 
   socket.emit('createGameMove', {
     sqr,
@@ -221,3 +222,4 @@ function bulmaComponents() {
       });
     }
 }
+
